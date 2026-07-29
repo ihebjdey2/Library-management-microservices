@@ -1,0 +1,88 @@
+services:
+  discovery-server:
+    build: ../backend/discovery-server
+    ports:
+      - "8761:8761"
+    image: gestion-emprunts/discovery-server
+
+  emprunt-service:
+    build: ../backend/emprunt-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    ports:
+      - "8189:8189"
+    image: gestion-emprunts/emprunt-service
+    depends_on:
+      - discovery-server
+
+  livre-service:
+    build: ../backend/livre-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    ports:
+      - "8183:8183"
+    image: gestion-emprunts/livre-service
+    depends_on:
+      - discovery-server
+
+  api-gateway:
+    build: ../backend/api-gateway
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    ports:
+      - "8111:8861"
+    image: gestion-emprunts/api-gateway
+    depends_on:
+      - discovery-server
+
+  reservation-service:
+    build: ../backend/reservation-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    ports:
+      - "8184:8184"
+    image: gestion-emprunts/reservation-service
+    depends_on:
+      - discovery-server
+
+  abonnement-service:
+    build: ../backend/abonnement-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    ports:
+      - "8009:8009"
+    image: gestion-emprunts/abonnement-service
+    depends_on:
+      - discovery-server
+
+  stock-service:
+    build: ../backend/stock-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    ports:
+      - "8008:8008"
+    image: gestion-emprunts/stock-service
+    depends_on:
+      - discovery-server
+
+  evenement-service:
+    build: ../backend/evenement-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/evenement?autoReconnect=true&useSSL=false
+    ports:
+      - "8112:8888"
+    image: gestion-emprunts/evenement-service
+    depends_on:
+      - mysql
+      - discovery-server
+
+  mysql:
+    image: "mysql:5.6"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_DATABASE=evenement
+    ports:
+      - 3307:3306
+    command: [ "mysqld", "--explicit_defaults_for_timestamp=1", "--lower_case_table_names=1", "--pid-file=/var/run/mysqld/mysqld.pid" ]
+

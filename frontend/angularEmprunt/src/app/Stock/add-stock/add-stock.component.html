@@ -1,0 +1,48 @@
+
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        Ajouter un nouveau Stock
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <form #form="ngForm">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div fxLayout="column" fxLayoutAlign="center center">
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Cout achat </label>
+            <input matInput type="text" name="cout_achat" [(ngModel)]="stock.cout_achat" required>
+            <mat-error *ngIf="form.controls['cout_achat'].invalid && form.controls['cout_achat'].touched" class="red-text">
+              <span *ngIf="form.controls['cout_achat'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>nombre de copie</label>
+            <input matInput type="number" name="nbrcopie" [(ngModel)]="stock.nbrcopie" required>
+            <mat-error *ngIf="form.controls['nbrcopie'].invalid && form.controls['nbrcopie'].touched" class="red-text">
+              <span *ngIf="form.controls['nbrcopie'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Reference stock</label>
+            <input matInput type="text" name="referenceStock" [(ngModel)]="stock.referencestock" required>
+          
+            <mat-error *ngIf="form.controls['referenceStock'].invalid && form.controls['referenceStock'].touched" class="red-text">
+              <span *ngIf="form.controls['referenceStock'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+        
+  
+          <button mat-flat-button color="accent" class="w-100" type="submit" value="Add Abonement" [disabled]="!form.valid" (click)="saveUser()">Add </button>
+  
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  

@@ -1,0 +1,71 @@
+
+<mat-card class="cardWithShadow" >
+  <mat-card-content class="p-24">
+    <div class="d-flex w-100">
+      <!-- Search Input -->
+      <input type="text" placeholder="Search" [(ngModel)]="search">
+      <button mat-flat-button color="accent" class="w-10" routerLink="/Livre/addLiv">Ajouter Livre</button>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-20">
+    <div>
+      <!-- Foyer Table -->
+      <div class="table-container ">
+        <table class="table">
+          <thead>
+          <tr>
+            <th class="table-header">Nom Livre</th>
+            <th class="table-header">Auteur</th>
+
+            <th class="table-header">Nombre de pages</th>
+            <th class="table-header">Date Edition</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let foyer of displayedFoyers">
+            <td class="table-cell">{{ foyer.nomLivre}}</td>
+            <td class="table-cell">{{ foyer.auteur }}</td>
+
+            <td class="table-cell">{{ foyer.nbrpage }}</td>
+            <td class="table-cell">{{ foyer.dateEdition }}</td>
+            <td class="table-cell">
+              <div>
+                <button
+                  mat-stroked-button
+                  class="flex-grow-1 d-flex align-items-center bg-success text-white"
+                  type="submit"
+                  value="Update Foyer"
+                  (click)="update(foyer)"
+                >
+                  Update
+                </button>
+                <button
+                  mat-flat-button
+                  color="warn"
+                  class="flex-grow-1"
+                  (click)="deleteFoyerById(foyer.idLivre)"
+                >
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+<!-- Update Section-->
+
+<div *ngIf="show">
+  <app-update-livre [foyer]="usertoSelected" (updateUser)="changeTab($event)"></app-update-livre>
+</div>
+

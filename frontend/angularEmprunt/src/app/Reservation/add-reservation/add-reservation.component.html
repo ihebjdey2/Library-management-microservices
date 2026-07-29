@@ -1,0 +1,36 @@
+<p>add-reservation works!</p>
+
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        Ajouter une nouvelle reservation
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  
+  <form #form="ngForm">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div fxLayout="column" fxLayoutAlign="center center">
+  
+      
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Date reservation</label>
+            <input matInput [matDatepicker]="dateRetourPicker" name="dateR" [(ngModel)]="foyer.dateR" required>
+            <mat-datepicker-toggle matSuffix [for]="dateRetourPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateRetourPicker></mat-datepicker>
+            <mat-error *ngIf="form.controls['dateR'].invalid && form.controls['dateR'].touched" class="red-text">
+              <span *ngIf="form.controls['dateR'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+  
+          <button mat-flat-button color="accent" class="w-100" type="submit" value="Add reservation" [disabled]="!form.valid" (click)="saveUser()">Add </button>
+  
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  

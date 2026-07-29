@@ -11,14 +11,8 @@
 npm-debug.log
 yarn-error.log
 
-# Frontend dependencies and generated files in the monorepo
-**/node_modules/
-**/dist/
-**/.angular/
-
 # IDEs and editors
 .idea/
-**/.idea/
 .project
 .classpath
 .c9/
@@ -46,13 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-
-# Java / Maven
-**/target/
-*.class
-*.log
-*.iml
-
-# Local environment files
-.env
-.env.*

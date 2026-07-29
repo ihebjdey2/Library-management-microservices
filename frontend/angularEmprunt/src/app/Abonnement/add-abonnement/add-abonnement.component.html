@@ -1,0 +1,41 @@
+
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        Ajouter un nouveau Abonement
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <form #form="ngForm">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div fxLayout="column" fxLayoutAlign="center center">
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Duree</label>
+            <input matInput type="text" name="abonne" [(ngModel)]="abonnement.duree" required>
+            <mat-error *ngIf="form.controls['abonne'].invalid && form.controls['abonne'].touched" class="red-text">
+              <span *ngIf="form.controls['abonne'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Date Abonnement</label>
+            <input matInput [matDatepicker]="dateRetourPicker" name="dateRetour" [(ngModel)]="abonnement.dateabonnement" required>
+            <mat-datepicker-toggle matSuffix [for]="dateRetourPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateRetourPicker></mat-datepicker>
+            <mat-error *ngIf="form.controls['dateRetour'].invalid && form.controls['dateRetour'].touched" class="red-text">
+              <span *ngIf="form.controls['dateRetour'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+        
+  
+          <button mat-flat-button color="accent" class="w-100" type="submit" value="Add Abonement" [disabled]="!form.valid" (click)="saveUser()">Add </button>
+  
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+  

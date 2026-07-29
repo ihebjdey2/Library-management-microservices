@@ -1,0 +1,65 @@
+
+<mat-card class="cardWithShadow" >
+    <mat-card-content class="p-24">
+      <div class="d-flex w-100">
+        <!-- Search Input -->
+        <input type="text" placeholder="Search" [(ngModel)]="search">
+        <button mat-flat-button color="accent" class="w-10" routerLink="/Abonnement/addAbon">Add Abonnement</button>
+  
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-20">
+      <div>
+        <!-- Foyer Table -->
+        <div class="table-container ">
+          <table class="table">
+            <thead>
+            <tr>
+              <th class="table-header">date abonnment</th>
+              <th class="table-header">duree abonnement</th>
+              <th class="table-header">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let foyer of displayedFoyers">
+              <td class="table-cell">{{ foyer.dateabonnement }}</td>
+              <td class="table-cell">{{ foyer.duree }}</td>
+              <td class="table-cell">
+                <div>
+                  <button
+                    mat-stroked-button
+                    class="flex-grow-1 d-flex align-items-center bg-success text-white"
+                    type="submit"
+                    value="Update Foyer"
+                    (click)="update(foyer)"
+                  >
+                    Update
+                  </button>
+                  <button
+                    mat-flat-button
+                    color="warn"
+                    class="flex-grow-1"
+                    (click)="deleteFoyerById(foyer.id)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  
+  <!-- Update Section-->
+  
+<div *ngIf="show">
+    <app-update-abonnement [foyer]="usertoSelected" (updateUser)="changeTab($event)"></app-update-abonnement>
+  </div> 
+  

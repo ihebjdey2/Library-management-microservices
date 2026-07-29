@@ -1,0 +1,65 @@
+<mat-card class="cardWithShadow" >
+    <mat-card-content class="p-24">
+      <div class="d-flex w-100">
+      
+        <input type="text" placeholder="Search" [(ngModel)]="search">
+        <button mat-flat-button color="accent" class="w-10" routerLink="/Reservation/addR">Add Reservation</button>
+  
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-20">
+      <div>
+       
+        <div class="table-container ">
+          <table class="table">
+            <thead>
+            <tr>
+              <th class="table-header">id Reservation</th>
+              <th class="table-header">date Reservation</th>
+              <th class="table-header">la validité du Reservation</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let foyer of displayedFoyers">
+              <td class="table-cell">{{ foyer.idR }}</td>
+              <td class="table-cell">{{ foyer. dateR }}</td>
+              <td class="table-cell">{{ foyer.valide}}</td>
+              <td class="table-cell">
+                <div>
+                  <button
+                    mat-stroked-button
+                    class="flex-grow-1 d-flex align-items-center bg-success text-white"
+                    type="submit"
+                    value="Update Foyer"
+                    (click)="update(foyer)"
+                  >
+                    Update
+                  </button>
+                  <button
+                    mat-flat-button
+                    color="warn"
+                    class="flex-grow-1"
+                    (click)="deleteFoyerById(foyer.idR)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+
+  <!-- Search Input
+  <div *ngIf="show">
+    <app-update-reservation [foyer]="usertoSelected" (updateUser)="changeTab($event)"></app-update-reservation >
+  </div> 
+ -->

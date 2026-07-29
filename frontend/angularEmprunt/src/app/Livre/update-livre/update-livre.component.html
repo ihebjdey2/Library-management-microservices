@@ -1,0 +1,47 @@
+
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-24">
+    <div fxLayout="column" fxLayoutAlign="center center">
+      Ajouter un Livre
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<form #form="ngForm">
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div fxLayout="column" fxLayoutAlign="center center">
+
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Nom </label>
+          <input matInput type="text" name="nomLivre" [(ngModel)]="foyer.nomLivre" required>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Auteur</label>
+          <input matInput  name="auteur" [(ngModel)]="foyer.auteur" required>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Nombre de pages</label>
+          <input matInput  name="nbrpage" [(ngModel)]="foyer.nbrpage" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Date edition</label>
+          <input matInput [matDatepicker]="dateEmpruntPicker" name="dateEdition" [(ngModel)]="foyer.dateEdition" required>
+          <mat-datepicker-toggle matSuffix [for]="dateEmpruntPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dateEmpruntPicker></mat-datepicker>
+          <mat-error *ngIf="form.controls['dateEmprunt'].invalid && form.controls['dateEdition'].touched" class="red-text">
+            <span *ngIf="form.controls['dateEdition'].hasError('required')">Required</span>
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-flat-button color="accent" class="w-100" type="submit" [disabled]="!form.valid" (click)="update(form.value)">Update Livre</button>
+
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
