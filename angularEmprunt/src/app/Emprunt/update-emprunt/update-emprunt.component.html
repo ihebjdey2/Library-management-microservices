@@ -1,0 +1,45 @@
+<form #form="ngForm">
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+
+      <div class="form-group w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Name</label>
+          <input matInput type="text" name="abonne" [(ngModel)]="foyer.abonne" required>
+          <mat-error *ngIf="form.controls['abonne'].invalid && form.controls['abonne'].touched" class="red-text">
+            <span *ngIf="form.controls['abonne'].hasError('required')">Required</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Date Emprunt</label>
+          <input matInput [matDatepicker]="empruntDatepicker" name="date_Emprunt" [(ngModel)]="foyer.date_Emprunt" required>
+          <mat-datepicker-toggle matSuffix [for]="empruntDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #empruntDatepicker></mat-datepicker>
+          <mat-error *ngIf="form.controls['date_Emprunt'].invalid && form.controls['date_Emprunt'].touched" class="red-text">
+            <span *ngIf="form.controls['date_Emprunt'].hasError('required')">Required</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <label>Date Retour</label>
+          <!-- Adjust this part based on your date picker implementation for date_retourE -->
+          <input matInput [matDatepicker]="retourDatepicker" name="date_retourE" [(ngModel)]="foyer.date_retourE" required>
+          <mat-datepicker-toggle matSuffix [for]="retourDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #retourDatepicker></mat-datepicker>
+          <mat-error *ngIf="form.controls['date_retourE'].invalid && form.controls['date_retourE'].touched" class="red-text">
+            <span *ngIf="form.controls['date_retourE'].hasError('required')">Required</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <button mat-flat-button color="accent" class="w-100" type="submit" [disabled]="!form.valid" (click)="update(form.value)">Update Emprunt</button>
+
+    </mat-card-content>
+  </mat-card>
+</form>
+

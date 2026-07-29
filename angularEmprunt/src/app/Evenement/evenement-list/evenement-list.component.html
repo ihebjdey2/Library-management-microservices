@@ -1,0 +1,64 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div class="d-flex w-100">
+        <!-- Search Input -->
+        <input type="text" placeholder="Search" [(ngModel)]="search">
+        <button mat-flat-button color="accent" class="w-10" routerLink="/Evenement/addEvenement">Add Evenement</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-20">
+      <div>
+        <!-- Evenement Table -->
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="table-header">Nom Evenement</th>
+                <th class="table-header">Date Debut Evenement</th>
+                <th class="table-header">Date Fin Evenement</th>
+                <th class="table-header">Number of Ateliers</th>
+                <th class="table-header">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let evenement of displayedEvenements">
+                <td class="table-cell">{{ evenement.nomEvenement }}</td>
+                <td class="table-cell">{{ evenement.dateDebutEvenement }}</td>
+                <td class="table-cell">{{ evenement.dateFinEvenement }}</td>
+                <td class="table-cell">{{ evenement.nbAteliers }}</td>
+                <td class="table-cell">
+                  <div>
+                    <button
+                      mat-stroked-button
+                      class="flex-grow-1 d-flex align-items-center bg-success text-white"
+                      type="submit"
+                      value="Update Evenement"
+                      (click)="updateEvenement(evenement)"
+                    >
+                      Update
+                    </button>
+                    <button
+                      mat-flat-button
+                      color="warn"
+                      class="flex-grow-1"
+                      (click)="deleteEvenementById(evenement.id)"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <!-- Update Section -->
+  <div *ngIf="show">
+    <app-update-evenement [evenement]="evenementSelected" (updateEvenement)="changeTab($event)"></app-update-evenement>
+  </div>

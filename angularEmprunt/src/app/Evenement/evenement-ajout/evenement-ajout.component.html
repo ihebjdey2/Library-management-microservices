@@ -1,0 +1,55 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        Ajouter un nouveau Evenement
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <form #form="ngForm">
+    <mat-card class="cardWithShadow">
+      <mat-card-content class="p-24">
+        <div fxLayout="column" fxLayoutAlign="center center">
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Nom Evenement</label>
+            <input matInput type="text" name="nomEvenement" [(ngModel)]="evenement.nomEvenement" required>
+            <mat-error *ngIf="form.controls['nomEvenement'].invalid && form.controls['nomEvenement'].touched" class="red-text">
+              <span *ngIf="form.controls['nomEvenement'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Date Debut Evenement</label>
+            <input matInput [matDatepicker]="dateDebutPicker" name="dateDebutEvenement" [(ngModel)]="evenement.dateDebutEvenement" required>
+            <mat-datepicker-toggle matSuffix [for]="dateDebutPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateDebutPicker></mat-datepicker>
+            <mat-error *ngIf="form.controls['dateDebutEvenement'].invalid && form.controls['dateDebutEvenement'].touched" class="red-text">
+              <span *ngIf="form.controls['dateDebutEvenement'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Date Fin Evenement</label>
+            <input matInput [matDatepicker]="dateFinPicker" name="dateFinEvenement" [(ngModel)]="evenement.dateFinEvenement" required>
+            <mat-datepicker-toggle matSuffix [for]="dateFinPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateFinPicker></mat-datepicker>
+            <mat-error *ngIf="form.controls['dateFinEvenement'].invalid && form.controls['dateFinEvenement'].touched" class="red-text">
+              <span *ngIf="form.controls['dateFinEvenement'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="w-100">
+            <label>Number of Ateliers</label>
+            <input matInput type="number" name="nbAteliers" [(ngModel)]="evenement.nbAteliers" required>
+            <mat-error *ngIf="form.controls['nbAteliers'].invalid && form.controls['nbAteliers'].touched" class="red-text">
+              <span *ngIf="form.controls['nbAteliers'].hasError('required')">Required</span>
+            </mat-error>
+          </mat-form-field>
+  
+          <button mat-flat-button color="accent" class="w-100" type="submit" value="Add Evenement" [disabled]="!form.valid" (click)="ajouterEvenement()">Add</button>
+  
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
