@@ -1,52 +1,217 @@
-# Plateforme de gestion des emprunts — Spring Boot & Angular
+<div align="center">
 
-Plateforme professionnelle organisée en monorepo, composée d'un frontend Angular et d'un ensemble de microservices Spring Boot. L'application couvre la gestion des emprunts, des livres, des réservations, des abonnements, du stock et des événements.
+# Library Management Microservices
 
-## Architecture du dépôt
+### Distributed Library Management Platform · Spring Boot · Angular · Docker
+
+A microservices-based library management platform combining an Angular frontend with independent Spring Boot services, centralized routing, service discovery, and containerized infrastructure.
+
+</div>
+
+---
+
+## Overview
+
+This project demonstrates the design of a distributed library management system using a microservices architecture.
+
+The platform covers multiple business domains including:
+
+- Loans
+- Books
+- Reservations
+- Subscriptions
+- Inventory
+- Events
+
+Each domain is implemented as an independent Spring Boot service, while the Angular frontend provides the user-facing and administration interfaces.
+
+---
+
+## Architecture
+
+```text
+                    ┌─────────────────────┐
+                    │   Angular Frontend  │
+                    │      Port 4200      │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │    API Gateway      │
+                    │      Port 8111      │
+                    └──────────┬──────────┘
+                               │
+            ┌──────────────────┼──────────────────┐
+            │                  │                  │
+            ▼                  ▼                  ▼
+      Loan Service       Book Service     Reservation Service
+        :8189              :8183                :8184
+
+            │                  │                  │
+            ├──────────────────┼──────────────────┤
+            │                  │                  │
+            ▼                  ▼                  ▼
+ Subscription Service   Stock Service       Event Service
+       :8009              :8008                :8112
+
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │  Eureka Discovery   │
+                    │      Port 8761      │
+                    └─────────────────────┘
+
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │       MySQL         │
+                    │      Port 3307      │
+                    └─────────────────────┘
+```
+
+The architecture separates business responsibilities into independent services and uses Spring Cloud components for communication and service discovery.
+
+---
+
+## Repository Structure
 
 ```text
 .
 ├── frontend/
-│   └── angularEmprunt/       # Application Angular et interface d'administration
+│   └── angularEmprunt/
+│       └── Angular application and administration interface
+│
 ├── backend/
-│   ├── api-gateway/          # Point d'entrée HTTP des microservices
-│   ├── discovery-server/     # Registre Eureka
+│   ├── api-gateway/
+│   ├── discovery-server/
 │   ├── emprunt-service/
 │   ├── livre-service/
 │   ├── reservation-service/
 │   ├── abonnement-service/
 │   ├── stock-service/
 │   └── evenement-service/
+│
 ├── infrastructure/
-│   └── docker-compose.yml    # Démarrage des services et de MySQL
+│   └── docker-compose.yml
+│
 └── README.md
 ```
 
-Chaque microservice Spring Boot possède son propre `pom.xml`, son code source, sa configuration et son test. Cette séparation facilite le développement indépendant, le déploiement et la maintenance des domaines fonctionnels.
+Each Spring Boot microservice contains its own:
 
-## Fonctionnalités
+- Maven configuration
+- Source code
+- Application configuration
+- Tests
 
-- gestion CRUD des emprunts ;
-- gestion des livres ;
-- gestion des abonnements ;
-- gestion des réservations ;
-- gestion du stock ;
-- gestion des événements ;
-- découverte des services avec Eureka ;
-- routage centralisé avec Spring Cloud Gateway ;
-- interface web Angular Material responsive ;
-- exécution des composants avec Docker Compose.
+This separation makes each business domain easier to develop, maintain, and deploy independently.
 
-## Technologies
+---
 
-- Angular 15, TypeScript, Angular Material et RxJS ;
-- Spring Boot, Spring Data JPA et Spring Cloud ;
-- Eureka Server et Spring Cloud Gateway ;
-- Maven ;
-- MySQL et H2 selon les services ;
-- Docker et Docker Compose.
+## Features
 
-## Démarrage du frontend
+### Library Operations
+
+- Loan management
+- Book management
+- Reservation management
+- Subscription management
+- Inventory management
+- Event management
+
+### Distributed Architecture
+
+- Independent Spring Boot microservices
+- Eureka service discovery
+- Centralized API routing with Spring Cloud Gateway
+- Separate frontend and backend layers
+- Service-oriented business-domain separation
+
+### Infrastructure
+
+- Docker-based service execution
+- Docker Compose orchestration
+- MySQL persistence
+- Independent service builds
+
+### Frontend
+
+- Angular web application
+- Angular Material interface
+- Responsive administration UI
+- TypeScript and RxJS
+
+---
+
+## Tech Stack
+
+### Frontend
+
+<p>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg" width="42" height="42" alt="Angular" />
+  &nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" width="42" height="42" alt="TypeScript" />
+</p>
+
+**Angular 15 · TypeScript · Angular Material · RxJS**
+
+### Backend
+
+<p>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg" width="42" height="42" alt="Spring Boot" />
+  &nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="42" height="42" alt="Java" />
+  &nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/maven/maven-original.svg" width="42" height="42" alt="Maven" />
+</p>
+
+**Spring Boot · Spring Data JPA · Spring Cloud · Maven**
+
+### Data & Infrastructure
+
+<p>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg" width="42" height="42" alt="MySQL" />
+  &nbsp;&nbsp;
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" width="42" height="42" alt="Docker" />
+</p>
+
+**MySQL · H2 · Docker · Docker Compose**
+
+### Microservices
+
+**Eureka Server · Spring Cloud Gateway · Service Discovery · API Gateway**
+
+---
+
+## Services
+
+| Component | Responsibility | Port |
+|---|---|---:|
+| Angular Frontend | User and administration interface | `4200` |
+| Eureka Discovery Server | Service registration and discovery | `8761` |
+| API Gateway | Centralized routing | `8111` |
+| Loan Service | Loan management | `8189` |
+| Book Service | Book management | `8183` |
+| Reservation Service | Reservation management | `8184` |
+| Subscription Service | Subscription management | `8009` |
+| Stock Service | Inventory management | `8008` |
+| Event Service | Event management | `8112` |
+| MySQL | Persistent database | `3307` |
+
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/ihebjdey2/Library-management-microservices.git
+cd Library-management-microservices
+```
+
+---
+
+### 2. Start the frontend
 
 ```bash
 cd frontend/angularEmprunt
@@ -54,51 +219,99 @@ npm install
 npm start
 ```
 
-L'interface est disponible sur `http://localhost:4200`.
+The Angular application will be available at:
 
-## Démarrage des microservices
+```text
+http://localhost:4200
+```
 
-Pour démarrer l'ensemble de l'infrastructure :
+---
+
+### 3. Start the infrastructure
+
+From the repository root:
 
 ```bash
 cd infrastructure
 docker compose up --build
 ```
 
-Les ports principaux sont :
+Docker Compose starts the configured services and database infrastructure.
 
-| Composant | Port |
-| --- | ---: |
-| Frontend Angular | 4200 |
-| Eureka Discovery Server | 8761 |
-| API Gateway | 8111 |
-| Emprunt | 8189 |
-| Livre | 8183 |
-| Réservation | 8184 |
-| Abonnement | 8009 |
-| Stock | 8008 |
-| Événement | 8112 |
-| MySQL | 3307 |
+---
 
-## Compilation d'un microservice
+## Building a Microservice
 
-Chaque service peut être compilé indépendamment :
+Each Spring Boot service can be built independently.
+
+Example:
 
 ```bash
 cd backend/emprunt-service
 ./mvnw clean package -DskipTests
 ```
 
-Sous Windows, utiliser `mvnw.cmd` à la place de `./mvnw`.
+On Windows:
 
-## Principes d'organisation
+```bash
+mvnw.cmd clean package -DskipTests
+```
 
-- un dossier par bounded context métier ;
-- un déploiement indépendant pour chaque microservice ;
-- aucune dépendance vers des chemins absolus propres à un poste de développement ;
-- configuration de l'infrastructure centralisée dans `infrastructure/` ;
-- frontend isolé du backend pour faciliter les pipelines CI/CD.
+---
 
-## État du projet
+## Architecture Principles
 
-Le dépôt fournit la structure fonctionnelle et les composants principaux de la plateforme. Les URL d'API, les secrets et les paramètres d'environnement doivent être externalisés avant un déploiement de production.
+The project follows several architectural principles:
+
+- One service per business domain
+- Independent microservice codebases
+- Centralized API routing
+- Service discovery through Eureka
+- Separation between frontend and backend
+- Infrastructure configuration grouped under `infrastructure/`
+- No dependency on machine-specific absolute paths
+- Independent service builds and deployment capabilities
+
+---
+
+## Engineering Concepts Demonstrated
+
+```text
+Microservices Architecture
+        │
+        ├── Service Discovery
+        ├── API Gateway
+        ├── Independent Services
+        ├── Domain Separation
+        ├── Database Integration
+        └── Containerized Infrastructure
+```
+
+The project demonstrates practical concepts commonly used in distributed backend systems, including service decomposition, discovery, centralized routing, container orchestration, and independent service lifecycle management.
+
+---
+
+## Current Status
+
+The repository contains the functional structure and core components of the platform.
+
+Before using the project in a production environment, configuration such as:
+
+- API URLs
+- Credentials
+- Secrets
+- Database configuration
+- Environment-specific parameters
+
+should be externalized and managed through appropriate environment configuration.
+
+---
+
+## Author
+
+**Iheb Jdey**  
+Software Engineer · Full-Stack · Mobile · Applied AI
+
+[Portfolio](https://ihebjdey.tn) ·
+[LinkedIn](https://www.linkedin.com/in/jdey-iheb) ·
+[GitHub](https://github.com/ihebjdey2)
